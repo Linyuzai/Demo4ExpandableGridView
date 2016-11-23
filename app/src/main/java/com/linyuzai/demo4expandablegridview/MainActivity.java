@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.linyuzai.expandablegridview.ExpandableGridAdapter;
 import com.linyuzai.expandablegridview.ExpandableGridView;
 import com.linyuzai.expandablegridview.OnGridItemClickListener;
-import com.linyuzai.expandablegridview.XExpandableGridView;
 import com.linyuzai.expandablegridview.adapter.SimpleExpandableGridAdapter;
 
 import java.util.ArrayList;
@@ -18,7 +18,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    XExpandableGridView expandableGridView;
+    ExpandableGridView expandableGridView;
+    SimpleExpandableGridAdapter<String> expandableGridAdapter;
 
     List<List<String>> strings;
 
@@ -26,19 +27,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        expandableGridView = (XExpandableGridView) findViewById(R.id.xegv);
+        expandableGridView = (ExpandableGridView) findViewById(R.id.xegv);
         strings = new ArrayList<>();
         List<String> temp = new ArrayList<>();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 1; i++)
             temp.add("" + i);
         for (int i = 0; i < 10; i++)
             strings.add(temp);
-        expandableGridView.setExpandableGridAdapter(new MyAdapter(strings));
-        expandableGridView.setGroupClickEnable(false);
-        expandableGridView.expandAll();
+        expandableGridView.setExpandableGridAdapter(expandableGridAdapter = new MyAdapter(strings));
+        //expandableGridView.setGroupClickable(false);
+        expandableGridView.expandAll(true);
         expandableGridView.setOnGridItemClickListener(new OnGridItemClickListener() {
             @Override
             public void onGridItemClick(int gridGroupPosition, int gridChildPosition) {
+                String date = expandableGridAdapter.getData(gridGroupPosition, gridChildPosition);
                 Toast.makeText(MainActivity.this, "p:" + gridGroupPosition + ",c:" + gridChildPosition, Toast.LENGTH_SHORT).show();
             }
         });
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             if (convertView == null)
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item, parent, false);
             TextView textView = (TextView) convertView.findViewById(R.id.text);
-            textView.setText(getData(gridGroupPosition, gridGroupPosition));
+            textView.setText(getData(gridGroupPosition, 0));
             return convertView;
         }
 

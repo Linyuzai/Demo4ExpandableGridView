@@ -9,7 +9,7 @@ import android.widget.GridView;
 /**
  * Created by Administrator on 2016/8/21 0021.
  */
-public class XGridView extends GridView {
+class XGridView extends GridView {
 
     public static final String TAG = XGridView.class.getSimpleName();
 
@@ -25,14 +25,8 @@ public class XGridView extends GridView {
         super(context, attrs, defStyleAttr);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public XGridView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        // TODO Auto-generated method stub
         int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
                 MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, expandSpec);

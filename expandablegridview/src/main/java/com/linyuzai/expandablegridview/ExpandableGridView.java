@@ -2,6 +2,7 @@ package com.linyuzai.expandablegridview;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
@@ -14,33 +15,39 @@ import android.widget.ListAdapter;
  */
 public class ExpandableGridView extends ExpandableListView implements ExpandableListView.OnGroupClickListener {
 
-    boolean isOverwriteOnMeasure = false;
+    boolean isOverwriteOnMeasure;
 
-    private boolean isGroupClickEnable = true;
+    private boolean isGroupClickable;
 
     public ExpandableGridView(Context context) {
         super(context);
-        init(context);
+        init(context, null);
     }
 
     public ExpandableGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init(context, attrs);
     }
 
     public ExpandableGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ExpandableGridView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
+        init(context, attrs);
     }
 
-    private void init(Context context) {
+    private void init(Context context, AttributeSet attrs) {
         setOnGroupClickListener(this);
+        if (attrs == null)
+            return;
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ExpandableGridView);
+        isOverwriteOnMeasure = a.getBoolean(R.styleable.ExpandableGridView_overwriteMeasure, false);
+        isGroupClickable = a.getBoolean(R.styleable.ExpandableGridView_groupClickable, true);
+        a.recycle();
     }
 
     @Deprecated
@@ -61,6 +68,7 @@ public class ExpandableGridView extends ExpandableListView implements Expandable
 
     public void setExpandableGridAdapter(ExpandableGridAdapter adapter) {
         super.setAdapter(adapter);
+
     }
 
     @Deprecated
@@ -82,12 +90,12 @@ public class ExpandableGridView extends ExpandableListView implements Expandable
         return (ExpandableGridAdapter) super.getExpandableListAdapter();
     }
 
-    public boolean isGroupClickEnable() {
-        return isGroupClickEnable;
+    public boolean isGroupClickable() {
+        return isGroupClickable;
     }
 
-    public void setGroupClickEnable(boolean groupClickEnable) {
-        isGroupClickEnable = groupClickEnable;
+    public void setGroupClickable(boolean groupClickable) {
+        isGroupClickable = groupClickable;
     }
 
     public void setOnGridItemClickListener(OnGridItemClickListener listener) {
@@ -113,7 +121,6 @@ public class ExpandableGridView extends ExpandableListView implements Expandable
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        // TODO Auto-generated method stub
         int expandSpec = heightMeasureSpec;
         if (isOverwriteOnMeasure)
             expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
@@ -123,6 +130,6 @@ public class ExpandableGridView extends ExpandableListView implements Expandable
 
     @Override
     public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-        return !isGroupClickEnable;
+        return !isGroupClickable;
     }
 }

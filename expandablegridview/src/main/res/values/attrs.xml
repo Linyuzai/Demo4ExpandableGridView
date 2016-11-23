@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExpandableGridView">
+        <attr name="groupClickable" format="boolean" />
+        <attr name="overwriteMeasure" format="boolean" />
+    </declare-styleable>
+</resources>

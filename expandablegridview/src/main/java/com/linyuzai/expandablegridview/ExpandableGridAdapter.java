@@ -94,12 +94,12 @@ public abstract class ExpandableGridAdapter extends BaseExpandableListAdapter {
 
     public abstract int getNumColumns(int gridGroupPosition);
 
-    class GridAdapter extends BaseAdapter {
+    private class GridAdapter extends BaseAdapter {
 
         private ExpandableGridAdapter expandableGridAdapter;
         private int gridGroupPosition;
 
-        public GridAdapter(ExpandableGridAdapter expandableGridAdapter, int gridGroupPosition) {
+        GridAdapter(ExpandableGridAdapter expandableGridAdapter, int gridGroupPosition) {
             this.expandableGridAdapter = expandableGridAdapter;
             this.gridGroupPosition = gridGroupPosition;
         }
@@ -108,7 +108,7 @@ public abstract class ExpandableGridAdapter extends BaseExpandableListAdapter {
             return gridGroupPosition;
         }
 
-        public void setGridGroupPosition(int gridGroupPosition) {
+        void setGridGroupPosition(int gridGroupPosition) {
             this.gridGroupPosition = gridGroupPosition;
         }
 
@@ -138,7 +138,7 @@ public abstract class ExpandableGridAdapter extends BaseExpandableListAdapter {
 
             private int gridChildPosition;
 
-            public OnClickListenerImpl(int gridChildPosition) {
+            OnClickListenerImpl(int gridChildPosition) {
                 this.gridChildPosition = gridChildPosition;
             }
 
