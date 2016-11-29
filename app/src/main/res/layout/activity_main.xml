@@ -23,8 +23,8 @@
                 android:id="@+id/xegv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                grid:groupClickable="false"
-                grid:overwriteMeasure="true" />
+                grid:group_clickable="false"
+                grid:overwrite_measure="true" />
         </RelativeLayout>
     </LinearLayout>
 </ScrollView>

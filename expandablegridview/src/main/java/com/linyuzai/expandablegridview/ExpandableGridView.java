@@ -15,9 +15,11 @@ import android.widget.ListAdapter;
  */
 public class ExpandableGridView extends ExpandableListView implements ExpandableListView.OnGroupClickListener {
 
-    boolean isOverwriteOnMeasure;
-
+    private OnGridItemClickListener listener;
+    private boolean isOverwriteOnMeasure;
     private boolean isGroupClickable;
+    private int horizontalSpacing;
+    private int verticalSpacing;
 
     public ExpandableGridView(Context context) {
         super(context);
@@ -45,8 +47,10 @@ public class ExpandableGridView extends ExpandableListView implements Expandable
         if (attrs == null)
             return;
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ExpandableGridView);
-        isOverwriteOnMeasure = a.getBoolean(R.styleable.ExpandableGridView_overwriteMeasure, false);
-        isGroupClickable = a.getBoolean(R.styleable.ExpandableGridView_groupClickable, true);
+        isOverwriteOnMeasure = a.getBoolean(R.styleable.ExpandableGridView_overwrite_measure, false);
+        isGroupClickable = a.getBoolean(R.styleable.ExpandableGridView_group_clickable, true);
+        horizontalSpacing = a.getDimensionPixelOffset(R.styleable.ExpandableGridView_horizontal_spacing, 0);
+        verticalSpacing = a.getDimensionPixelOffset(R.styleable.ExpandableGridView_vertical_spacing, 0);
         a.recycle();
     }
 
@@ -68,7 +72,9 @@ public class ExpandableGridView extends ExpandableListView implements Expandable
 
     public void setExpandableGridAdapter(ExpandableGridAdapter adapter) {
         super.setAdapter(adapter);
-
+        getExpandableGridAdapter().horizontalSpacing = horizontalSpacing;
+        getExpandableGridAdapter().verticalSpacing = verticalSpacing;
+        getExpandableGridAdapter().listener = listener;
     }
 
     @Deprecated
@@ -90,6 +96,34 @@ public class ExpandableGridView extends ExpandableListView implements Expandable
         return (ExpandableGridAdapter) super.getExpandableListAdapter();
     }
 
+    public int getHorizontalSpacing() {
+        return horizontalSpacing;
+    }
+
+    public void setHorizontalSpacing(int horizontalSpacing) {
+        this.horizontalSpacing = horizontalSpacing;
+        if (getExpandableGridAdapter() != null)
+            getExpandableGridAdapter().horizontalSpacing = horizontalSpacing;
+    }
+
+    public int getVerticalSpacing() {
+        return verticalSpacing;
+    }
+
+    public void setVerticalSpacing(int verticalSpacing) {
+        this.verticalSpacing = verticalSpacing;
+        if (getExpandableGridAdapter() != null)
+            getExpandableGridAdapter().verticalSpacing = verticalSpacing;
+    }
+
+    public boolean isOverwriteOnMeasure() {
+        return isOverwriteOnMeasure;
+    }
+
+    public void setOverwriteOnMeasure(boolean overwriteOnMeasure) {
+        isOverwriteOnMeasure = overwriteOnMeasure;
+    }
+
     public boolean isGroupClickable() {
         return isGroupClickable;
     }
@@ -99,11 +133,13 @@ public class ExpandableGridView extends ExpandableListView implements Expandable
     }
 
     public void setOnGridItemClickListener(OnGridItemClickListener listener) {
-        getExpandableGridAdapter().listener = listener;
+        this.listener = listener;
+        if (getExpandableGridAdapter() != null)
+            getExpandableGridAdapter().listener = listener;
     }
 
     public OnGridItemClickListener getOnGridItemClickListener() {
-        return getExpandableGridAdapter().listener;
+        return listener;
     }
 
     public void expandAll() {

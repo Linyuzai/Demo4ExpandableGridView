@@ -13,6 +13,8 @@ import android.widget.BaseExpandableListAdapter;
  */
 public abstract class ExpandableGridAdapter extends BaseExpandableListAdapter {
 
+    int horizontalSpacing;
+    int verticalSpacing;
     OnGridItemClickListener listener;
 
     @Override
@@ -68,6 +70,8 @@ public abstract class ExpandableGridAdapter extends BaseExpandableListAdapter {
             convertView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
                     AbsListView.LayoutParams.WRAP_CONTENT));
             convertView.setVerticalScrollBarEnabled(false);
+            ((XGridView) convertView).setHorizontalSpacing(horizontalSpacing);
+            ((XGridView) convertView).setVerticalSpacing(verticalSpacing);
             ((XGridView) convertView).setAdapter(gridAdapter);
             ((XGridView) convertView).setSelector(new ColorDrawable(Color.TRANSPARENT));
         } else {

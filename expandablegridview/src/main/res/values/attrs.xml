@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ExpandableGridView">
-        <attr name="groupClickable" format="boolean" />
-        <attr name="overwriteMeasure" format="boolean" />
+        <attr name="group_clickable" format="boolean" />
+        <attr name="overwrite_measure" format="boolean" />
+        <attr name="vertical_spacing" format="dimension" />
+        <attr name="horizontal_spacing" format="dimension" />
     </declare-styleable>
 </resources>
