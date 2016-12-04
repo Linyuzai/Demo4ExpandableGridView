@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         expandableGridView.expandAll(true);
         expandableGridView.setOnGridItemClickListener(new OnGridItemClickListener() {
             @Override
-            public void onGridItemClick(int gridGroupPosition, int gridChildPosition) {
+            public void onGridItemClick(View view, int gridGroupPosition, int gridChildPosition) {
                 String date = expandableGridAdapter.getData(gridGroupPosition, gridChildPosition);
                 Toast.makeText(MainActivity.this, "p:" + gridGroupPosition + ",c:" + gridChildPosition, Toast.LENGTH_SHORT).show();
             }

@@ -149,7 +149,7 @@ public abstract class ExpandableGridAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 if (listener != null)
-                    listener.onGridItemClick(gridGroupPosition, gridChildPosition);
+                    listener.onGridItemClick(v, gridGroupPosition, gridChildPosition);
             }
         }
     }

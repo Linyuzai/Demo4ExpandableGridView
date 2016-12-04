@@ -17,12 +17,13 @@ public abstract class SimpleExpandableGridAdapter<T> extends ExpandableGridAdapt
 
     @Override
     public int getGridGroupCount() {
-        return dataList.size();
+        return dataList == null ? 0 : dataList.size();
     }
 
     @Override
     public int getGridChildCount(int gridGroupPosition) {
-        return dataList.get(gridGroupPosition).size();
+        List<T> children = dataList.get(gridGroupPosition);
+        return children == null ? 0 : children.size();
     }
 
     public T getData(int gridGroupPosition, int gridChildPosition) {
