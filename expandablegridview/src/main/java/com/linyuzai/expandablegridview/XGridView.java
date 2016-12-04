@@ -1,8 +1,6 @@
 package com.linyuzai.expandablegridview;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.GridView;
 
@@ -10,8 +8,6 @@ import android.widget.GridView;
  * Created by Administrator on 2016/8/21 0021.
  */
 class XGridView extends GridView {
-
-    public static final String TAG = XGridView.class.getSimpleName();
 
     public XGridView(Context context) {
         super(context);

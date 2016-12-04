@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        expandableGridView = (ExpandableGridView) findViewById(R.id.xegv);
+        expandableGridView = (ExpandableGridView) findViewById(R.id.egv);
         strings = new ArrayList<>();
         List<String> temp = new ArrayList<>();
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 6; i++)
             temp.add("" + i);
         for (int i = 0; i < 10; i++)
             strings.add(temp);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             if (convertView == null)
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item, parent, false);
             TextView textView = (TextView) convertView.findViewById(R.id.text);
-            textView.setText(getData(gridGroupPosition, 0));
+            textView.setText("group:" + gridGroupPosition);
             return convertView;
         }
 
@@ -66,13 +66,41 @@ public class MainActivity extends AppCompatActivity {
             if (convertView == null)
                 convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item, parent, false);
             TextView textView = (TextView) convertView.findViewById(R.id.text);
-            textView.setText(getData(gridGroupPosition, gridChildPosition));
+            textView.setText("child:" + getData(gridGroupPosition, gridChildPosition));
             return convertView;
         }
 
         @Override
         public int getNumColumns(int gridGroupPosition) {
-            return gridGroupPosition % 5 + 1;
+            return gridGroupPosition % 3 + 3;
+        }
+    }
+
+    class MyAdapter2 extends ExpandableGridAdapter {
+
+        @Override
+        public int getGridGroupCount() {
+            return 0;
+        }
+
+        @Override
+        public int getGridChildCount(int gridGroupPosition) {
+            return 0;
+        }
+
+        @Override
+        public View getGridGroupView(int gridGroupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+            return null;
+        }
+
+        @Override
+        public View getGridChildView(int gridGroupPosition, int gridChildPosition, View convertView, ViewGroup parent) {
+            return null;
+        }
+
+        @Override
+        public int getNumColumns(int gridGroupPosition) {
+            return 0;
         }
     }
 }
